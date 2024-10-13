@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"os/exec"
 
 	"github.com/charmbracelet/bubbles/list"
 	tea "github.com/charmbracelet/bubbletea"
@@ -16,13 +17,8 @@ type item struct {
 	title, desc string
 }
 
-// Title method returns the item's title.
 func (i item) Title() string { return i.title }
-
-// Description method returns the item's description.
 func (i item) Description() string { return i.desc }
-
-// FilterValue method returns the title for filtering purposes.
 func (i item) FilterValue() string { return i.title }
 
 // Main model struct holding the list.
@@ -51,13 +47,11 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			// Check which item is selected and simulate a system command.
 			switch selectedItem.(item).title {
 			case "Shutdown":
-				fmt.Println("Executing Shutdown command (echo)")
-				// Replace this with actual shutdown command later.
-				// e.g., exec.Command("shutdown", "-h", "now").Run()
+				exec.Command("shutdown", "now").Run()
+				return m,tea.Quit
 			case "Reboot":
-				fmt.Println("Executing Reboot command (echo)")
-				// Replace this with actual reboot command later.
-				// e.g., exec.Command("reboot").Run()
+				 exec.Command("reboot").Run()
+				return m,tea.Quit
 			}
 
 			// Return the model without quitting.
