@@ -78,13 +78,6 @@ func (m model) View() string {
 
 func main() {
 
-	f, err := os.OpenFile("/tmp/quick-draw.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-if err != nil {
-    fmt.Println("Error opening log file:", err)
-    os.Exit(1)
-}
-defer f.Close()
-log.SetOutput(f)
 	// Items for Shutdown and Reboot options.
 	items := []list.Item{
 		item{title: "Shutdown", desc: "Turn off the system"},
