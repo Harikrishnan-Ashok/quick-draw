@@ -19,7 +19,7 @@ Quick Draw is a simple command-line utility for system management, providing a t
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/quick-draw.git
+   git clone https://github.com/Harikrishnan-Ashok/quick-draw.git
    cd quick-draw
    ```
 
