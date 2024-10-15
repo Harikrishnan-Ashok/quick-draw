@@ -12,11 +12,18 @@ import (
 
 var (
 	// Styles for lists
-	docStyle  = lipgloss.NewStyle().Margin(1, 1)
-	listStyle = lipgloss.NewStyle()
+	docStyle  = lipgloss.NewStyle().Margin(2, 2)
+	
+	listStyle = lipgloss.NewStyle().
+    BorderForeground(lipgloss.Color("0")).
+    Bold(false).
+    Border(lipgloss.RoundedBorder())
 
 	// Style for the active (selected) list
-	activeListStyle = lipgloss.NewStyle().BorderForeground(lipgloss.Color("205")).Bold(true)
+	activeListStyle = lipgloss.NewStyle().
+    BorderForeground(lipgloss.Color("205")).
+    Bold(true).
+    Border(lipgloss.RoundedBorder())
 )
 
 const (
@@ -142,7 +149,8 @@ func main() {
 
 	// Initialize the first list (System Commands).
 	list1 := list.New(items, list.NewDefaultDelegate(), 0, 0)
-	list1.Title = "Shortcuts"
+	list1.Title = "Shortcuts"	
+	list1.SetShowHelp(false)
 
 	// Initialize the second list (Shortcuts).
 	list2 := list.New(shortcuts, list.NewDefaultDelegate(), 0, 0)
