@@ -17,13 +17,15 @@ var (
 	listStyle = lipgloss.NewStyle().
     BorderForeground(lipgloss.Color("0")).
     Bold(false).
-    Border(lipgloss.RoundedBorder())
+    Border(lipgloss.RoundedBorder()).
+	Margin(0,2)
 
 	// Style for the active (selected) list
 	activeListStyle = lipgloss.NewStyle().
-    BorderForeground(lipgloss.Color("205")).
+    BorderForeground(lipgloss.Color("120")).
     Bold(true).
-    Border(lipgloss.RoundedBorder())
+    Border(lipgloss.RoundedBorder()).
+	Margin(0,2)
 )
 
 const (
@@ -97,10 +99,10 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 	case tea.WindowSizeMsg:
 		// Handle resizing of the window.
-		h, v := docStyle.GetFrameSize()
-		listWidth := (msg.Width - h) / 2 // Divide available width between the two lists
-		m.list1.SetSize(listWidth, msg.Height-v)
-		m.list2.SetSize(listWidth, msg.Height-v)
+		_, v := docStyle.GetFrameSize()
+
+		m.list1.SetSize(msg.Width,v*3)
+		m.list2.SetSize(msg.Width,v*3)
 	}
 
 	// Update only the active list.
@@ -113,6 +115,11 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 	return m, cmd
 }
+
+func helpView() string {
+	return "\n[Tab] Switch lists • [↑/↓] Navigate • [Enter] Proceed • [q/Ctrl+C] Quit"
+}
+
 
 // View function renders both lists side by side with styles.
 func (m model) View() string {
@@ -128,7 +135,10 @@ func (m model) View() string {
 
 	// Render the two lists side by side.
 	return docStyle.Render(
-		lipgloss.JoinHorizontal(lipgloss.Top, list1View, list2View),
+		lipgloss.JoinVertical(lipgloss.Top, // Render lists vertically
+			lipgloss.JoinHorizontal(lipgloss.Top, list1View, list2View), // List side by side
+			helpView(), // Custom help text below the lists
+		),
 	)
 }
 
