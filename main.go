@@ -80,7 +80,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				exec.Command("reboot").Run()
 				return m, tea.Quit
 			case "Firefox":
-				exec.Command("firefox").Run()
+				exec.Command("/bin/sh", "-c", "firefox & disown").Run()
 				return m, tea.Quit
 			case "File Manager":
 				exec.Command("lf").Run() // Replace with your file manager command.
