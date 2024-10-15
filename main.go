@@ -81,8 +81,10 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				return m, tea.Quit
 			case "Firefox":
 				exec.Command("firefox").Run()
+				return m, tea.Quit
 			case "File Manager":
 				exec.Command("lf").Run() // Replace with your file manager command.
+				return m, tea.Quit
 			}
 		}
 
