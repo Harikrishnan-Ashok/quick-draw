@@ -54,6 +54,16 @@ func (m model) Init() tea.Cmd {
 	return nil
 }
 
+func RunCmd(cmd *exec.Cmd) {
+    cmd.Stdout = os.Stdout
+    cmd.Stdin = os.Stdin
+    cmd.Stderr = os.Stderr
+    err := cmd.Run() // Capture the error, if any
+    if err != nil {
+        fmt.Println("Error running command:", err)
+    }
+}
+
 // Update handles key presses and window resizing.
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
@@ -91,8 +101,13 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			case "Firefox":
 				exec.Command("sh","-c","setsid firefox").Start()
 				return m, tea.Quit
+			
+			case "Neovim":
+				cmd := exec.Command("nvim")
+				RunCmd(cmd)
+				return m, tea.Quit
 			case "File Manager":
-				exec.Command("lf").Run() // Replace with your file manager command.
+				exec.Command("lf").Run() //replce with FM of choice
 				return m, tea.Quit
 			}
 		}
@@ -101,8 +116,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		// Handle resizing of the window.
 		_, v := docStyle.GetFrameSize()
 
-		m.list1.SetSize(msg.Width,v*3)
-		m.list2.SetSize(msg.Width,v*3)
+		m.list1.SetSize(msg.Width,v*4)
+		m.list2.SetSize(msg.Width,v*4)
 	}
 
 	// Update only the active list.
@@ -147,7 +162,8 @@ func main() {
 	// Items for Shutdown and Reboot options.
 	items := []list.Item{
 				item{title: "Firefox", desc: "Open firefox in a new window"},
-		item{title: "File Manager", desc: "Open File Manager"},
+				item{title: "File Manager", desc: "Open File Manager"},
+				item{title: "Neovim", desc: "Open Neovim"},
 			}
 
 	// Items for Shortcuts.
