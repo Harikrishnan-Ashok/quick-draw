@@ -2,6 +2,12 @@
 
 Quick Draw is a simple command-line utility for system management, providing a terminal user interface for shutdown and reboot operations.
 
+# Preview
+
+
+### Main Menu
+![Overview](preview/preview.png)
+
 ## Features
 
 - Terminal-based user interface
