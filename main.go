@@ -106,6 +106,12 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				cmd := exec.Command("nvim")
 				RunCmd(cmd)
 				return m, tea.Quit
+
+			case "Stremio":
+				cmd:= exec.Command("stremio")
+				RunCmd(cmd)
+				return m, tea.Quit
+
 			case "File Manager":
 				exec.Command("lf").Run() //replce with FM of choice
 				return m, tea.Quit
@@ -116,8 +122,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		// Handle resizing of the window.
 		_, v := docStyle.GetFrameSize()
 
-		m.list1.SetSize(msg.Width,v*4)
-		m.list2.SetSize(msg.Width,v*4)
+		m.list1.SetSize(msg.Width,v*5)
+		m.list2.SetSize(msg.Width,v*3)
 	}
 
 	// Update only the active list.
@@ -164,6 +170,7 @@ func main() {
 				item{title: "Firefox", desc: "Open firefox in a new window"},
 				item{title: "File Manager", desc: "Open File Manager"},
 				item{title: "Neovim", desc: "Open Neovim"},
+				item{title: "Stremio", desc: "Watch Stuff"},
 			}
 
 	// Items for Shortcuts.
